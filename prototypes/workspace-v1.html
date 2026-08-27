@@ -95,8 +95,38 @@
     .progress span{display:block;width:18%;height:100%;background:var(--accent)}
     .kpi{font:26px/1.2 var(--font-mono);letter-spacing:-.03em}
     .empty{padding:54px 20px;text-align:center;color:var(--muted)}
+    .lesson-head{margin-bottom:18px;padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+    .lesson-meta{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px;color:var(--muted);font:12px/1.5 var(--font-mono)}
+    .lesson-progress{height:7px;margin-top:9px;border-radius:999px;background:var(--border);overflow:hidden}
+    .lesson-progress span{display:block;height:100%;width:11%;background:var(--accent);transition:width .2s ease}
+    .lesson-stage{display:none;max-width:780px}
+    .lesson-stage.active{display:block}
+    .lesson-card{padding:26px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
+    .lesson-card+.lesson-card{margin-top:14px}
+    .lesson-card h2{font-size:25px;margin-bottom:12px}
+    .lesson-card h3{font-size:17px;margin-top:22px}
+    .why{padding:14px 16px;border-left:3px solid var(--accent);background:var(--surface);margin:18px 0}
+    .concept-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
+    .concept{padding:15px;border:1px solid var(--border);border-radius:9px}
+    .concept strong{display:block;margin-bottom:5px}
+    .lesson-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px}
+    .lesson-nav div{display:flex;gap:8px}
+    .option-list{display:grid;gap:9px;margin-top:16px}
+    .option{padding:13px 15px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--fg);text-align:left}
+    .option:hover{border-color:var(--accent)}
+    .option.correct{border-color:var(--accent);background:color-mix(in oklch,var(--accent) 7%,var(--bg))}
+    .feedback-box{display:none;margin-top:13px;padding:13px 15px;border-radius:9px;background:var(--surface)}
+    .feedback-box.show{display:block}
+    .message-box{padding:16px;border:1px solid var(--border);border-radius:9px;background:var(--surface);margin:14px 0}
+    .message-box .sender{color:var(--muted);font:12px/1.5 var(--font-mono)}
+    .metric-chain{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:18px 0}
+    .metric-chain div{padding:13px;border:1px solid var(--border);border-radius:9px;font-size:13px}
+    .metric-chain strong{display:block;margin-bottom:5px}
+    .part-label{display:inline-flex;margin-bottom:12px;padding:4px 8px;border-radius:999px;background:color-mix(in oklch,var(--accent) 10%,transparent);color:var(--accent);font:11px/1.5 var(--font-mono)}
+    .lesson-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+    .lesson-summary div{padding:14px;border-top:2px solid var(--fg);background:var(--surface)}
     @media(max-width:1050px){.app{grid-template-columns:190px minmax(420px,1fr)}.mentor{display:none}}
-    @media(max-width:760px){body{overflow:auto}.app{height:auto;min-height:100%;display:block}.topbar{position:sticky;top:0;z-index:5}.top-status>span{display:none}.sidebar{display:flex;gap:6px;overflow:auto;border-right:0;border-bottom:1px solid var(--border)}.side-label{display:none}.nav-btn{width:auto;flex:0 0 auto}.main{overflow:visible}.view{padding:22px 16px 50px}.grid{grid-template-columns:1fr}.task-row{grid-template-columns:1fr}.task-row .time{display:none}.page-head{display:block}.page-head button{margin-top:16px}}
+    @media(max-width:760px){body{overflow:auto}.app{height:auto;min-height:100%;display:block}.topbar{position:sticky;top:0;z-index:5}.top-status>span{display:none}.sidebar{display:flex;gap:6px;overflow:auto;border-right:0;border-bottom:1px solid var(--border)}.side-label{display:none}.nav-btn{width:auto;flex:0 0 auto}.main{overflow:visible}.view{padding:22px 16px 50px}.grid,.concept-grid,.metric-chain,.lesson-summary{grid-template-columns:1fr}.task-row{grid-template-columns:1fr}.task-row .time{display:none}.page-head{display:block}.page-head button{margin-top:16px}}
   </style>
 </head>
 <body>
@@ -108,16 +138,153 @@
 
     <nav class="sidebar" aria-label="Рабочая навигация">
       <p class="side-label">Работа</p>
-      <button class="nav-btn active" data-view-button="dashboard">Рабочий стол <span class="count">3</span></button>
+      <button class="nav-btn" data-view-button="dashboard">Рабочий стол <span class="count">3</span></button>
       <button class="nav-btn" data-view-button="inbox">Входящие <span class="count">3</span></button>
       <button class="nav-btn" data-view-button="project">Проект</button>
       <button class="nav-btn" data-view-button="data">Данные</button>
       <p class="side-label">Развитие</p>
+      <button class="nav-btn active" data-view-button="learning">Учебный день <span class="count">1</span></button>
       <button class="nav-btn" data-view-button="progress">Мой прогресс</button>
     </nav>
 
     <main class="main">
-      <section class="view active" data-view="dashboard" data-od-id="dashboard">
+      <section class="view active" data-view="learning" data-od-id="learning-day">
+        <div class="page-head"><div><p class="eyebrow">Неделя 1 · день 1</p><h1>От громкой идеи — к проверяемой задаче</h1><p class="muted">Полноценное занятие: 3 части по 30 минут. Можно остановиться после любой части.</p></div><span class="tag">Навык: постановка задачи</span></div>
+        <div class="lesson-head">
+          <strong data-stage-title>Часть 1 · Рабочее событие</strong>
+          <div class="lesson-meta"><span data-stage-counter>Шаг 1 из 9</span><span data-stage-time>≈ 5 минут</span></div>
+          <div class="lesson-progress" aria-label="Прогресс занятия"><span data-lesson-progress></span></div>
+        </div>
+
+        <div class="lesson-stage active" data-stage="0" data-title="Часть 1 · Рабочее событие" data-time="≈ 5 минут">
+          <article class="lesson-card">
+            <span class="part-label">Часть 1 из 3 · Контекст</span>
+            <h2>Ваш первый день начался с поручения директора</h2>
+            <p>Вы вышли младшим бизнес-аналитиком в Центр прикладного ИИ группы «Меридиан». Через четыре дня инвестиционный комитет решит, что делать с идеей AI-консьержа.</p>
+            <div class="message-box"><div class="sender">Андрей Крылов · генеральный директор · 09:07</div><p><strong>AI-консьерж надо запустить за месяц</strong></p><p>Количество жалоб выросло. Конкуренты уже используют AI. Предлагаю запустить консьержа в приложении: пусть отвечает круглосуточно и разгрузит контактный центр. Жду план и прогноз экономии.</p></div>
+            <div class="why"><strong>Ваша задача сегодня</strong><br>Не построить бота, а подготовить разумный следующий шаг: что именно нужно решить руководству и что необходимо проверить до траты денег.</div>
+          </article>
+        </div>
+
+        <div class="lesson-stage" data-stage="1" data-title="Часть 1 · Теория простыми словами" data-time="≈ 10 минут">
+          <article class="lesson-card">
+            <span class="part-label">Теория</span>
+            <h2>Руководитель принёс решение раньше задачи</h2>
+            <p>Фраза «давайте внедрим AI» говорит, <em>что хотят купить или построить</em>, но не говорит, <em>какое изменение должно произойти в бизнесе</em>. Один и тот же симптом может иметь разные причины, а значит — разные решения.</p>
+            <div class="concept-grid">
+              <div class="concept"><strong>Симптом</strong>То, что заметили: жалоб стало больше.</div>
+              <div class="concept"><strong>Предположение</strong>Возможное объяснение: гости долго ждут ответа.</div>
+              <div class="concept"><strong>Предложенное решение</strong>Идея инструмента: запустить AI-консьержа.</div>
+              <div class="concept"><strong>Бизнес-задача</strong>Какой результат нужен и какое решение должен принять руководитель.</div>
+            </div>
+            <div class="why"><strong>Зачем это вам как аналитику:</strong> если причина жалоб — ошибки бронирования, быстрый чат не устранит проблему. Аналитик защищает компанию от дорогого решения не той задачи.</div>
+            <h3>Профессиональное название</h3><p>Такое уточнение называется <strong>problem framing</strong> — постановка или рамка проблемы.</p>
+          </article>
+        </div>
+
+        <div class="lesson-stage" data-stage="2" data-title="Часть 1 · Разобранный пример" data-time="≈ 10 минут">
+          <article class="lesson-card">
+            <span class="part-label">Пример из ресторана</span>
+            <h2>«Нам нужен робот для кухни»</h2>
+            <p>Директор ресторана видит, что заказы выходят медленно, и предлагает купить робота. Аналитик не спорит с идеей, а раскладывает ситуацию:</p>
+            <div class="concept-grid">
+              <div class="concept"><strong>Наблюдение</strong>30% заказов готовятся дольше 20 минут.</div>
+              <div class="concept"><strong>Возможные причины</strong>Очередь на одной станции, неверный прогноз загрузки, нехватка заготовок.</div>
+              <div class="concept"><strong>Решения</strong>Перестроить процесс, изменить график, улучшить прогноз или применить оборудование.</div>
+              <div class="concept"><strong>Решение руководства</strong>Выделять ли деньги на двухнедельную диагностику и пилот.</div>
+            </div>
+            <p><strong>Главная мысль:</strong> аналитик не обязан заранее знать ответ. Он должен сделать неопределённость видимой и предложить дешёвый способ её уменьшить.</p>
+          </article>
+        </div>
+
+        <div class="lesson-stage" data-stage="3" data-title="Часть 1 · Ваша первая попытка" data-time="≈ 5 минут">
+          <article class="lesson-card">
+            <span class="part-label">Практика · несколько попыток</span>
+            <h2>Что означает фраза «бот возьмёт половину вопросов»?</h2>
+            <p>Выберите наиболее точный вариант. Если ошибётесь, получите подсказку, а не готовый ответ.</p>
+            <div class="option-list" data-quiz="assumption">
+              <button class="option" data-answer="wrong">Проверенный факт о работе поддержки</button>
+              <button class="option" data-answer="correct">Предположение о будущем эффекте</button>
+              <button class="option" data-answer="wrong">Окончательное решение руководства</button>
+            </div>
+            <div class="feedback-box" data-feedback="assumption" role="status"></div>
+          </article>
+        </div>
+
+        <div class="lesson-stage" data-stage="4" data-title="Часть 2 · Теория метрик" data-time="≈ 10 минут">
+          <article class="lesson-card">
+            <span class="part-label">Часть 2 из 3 · Теория</span>
+            <h2>Как понять, стало ли бизнесу лучше</h2>
+            <p>Нельзя измерять успех количеством разговоров с ботом: это показывает активность инструмента, а не пользу гостю. Нужна связка из четырёх элементов.</p>
+            <div class="metric-chain">
+              <div><strong>Результат</strong>Проблема гостя решена быстрее.</div>
+              <div><strong>Главная метрика</strong>Доля проблем, решённых ≤ 15 минут.</div>
+              <div><strong>Драйвер</strong>Время первого ответа.</div>
+              <div><strong>Защита</strong>Повторные обращения не растут.</div>
+            </div>
+            <p><strong>Защитная метрика</strong> (guardrail metric) следит, чтобы улучшение одного показателя не испортило что-то важное. Например, менеджеры могут отвечать быстрее, но давать бесполезные ответы.</p>
+          </article>
+        </div>
+
+        <div class="lesson-stage" data-stage="5" data-title="Часть 2 · Разобранный пример" data-time="≈ 10 минут">
+          <article class="lesson-card">
+            <span class="part-label">Пример из отеля</span>
+            <h2>Быстро ответить — ещё не значит помочь</h2>
+            <p>Отель сократил среднее время первого ответа с 12 до 3 минут. На первый взгляд проект успешен. Но доля повторных обращений выросла с 18% до 31%: операторы стали быстро отправлять шаблон и закрывать диалог.</p>
+            <div class="lesson-summary">
+              <div><strong>Ускорили</strong><br>Первый ответ</div>
+              <div><strong>Повредили</strong><br>Решение проблемы</div>
+              <div><strong>Обнаружили</strong><br>Защитной метрикой</div>
+            </div>
+            <div class="why"><strong>Вывод:</strong> одна цифра почти всегда создаёт слепую зону. Система метрик показывает результат, причины и возможный ущерб вместе.</div>
+          </article>
+        </div>
+
+        <div class="lesson-stage" data-stage="6" data-title="Часть 2 · Проверка понимания" data-time="≈ 10 минут">
+          <article class="lesson-card">
+            <span class="part-label">Практика</span>
+            <h2>Какой показатель первым заметит ухудшение качества?</h2>
+            <p>Команда отвечает быстрее, но гости вынуждены писать снова.</p>
+            <div class="option-list" data-quiz="guardrail">
+              <button class="option" data-answer="wrong">Медианное время первого ответа</button>
+              <button class="option" data-answer="correct">Доля повторных обращений за 48 часов</button>
+              <button class="option" data-answer="wrong">Количество диалогов с AI-консьержем</button>
+            </div>
+            <div class="feedback-box" data-feedback="guardrail" role="status"></div>
+          </article>
+        </div>
+
+        <div class="lesson-stage" data-stage="7" data-title="Часть 3 · Как оформить рекомендацию" data-time="≈ 10 минут">
+          <article class="lesson-card">
+            <span class="part-label">Часть 3 из 3 · Теория</span>
+            <h2>Хорошая рекомендация не притворяется, что всё известно</h2>
+            <p>Руководителю нужен не пересказ исследования, а понятный выбор. Короткая аналитическая записка отвечает на пять вопросов:</p>
+            <ol><li>Какое решение предстоит принять?</li><li>Что уже известно?</li><li>Что пока только предполагается?</li><li>Как измерим пользу и возможный ущерб?</li><li>Какой следующий шаг уменьшит неопределённость?</li></ol>
+            <div class="why"><strong>Не нужно обещать точную экономию без данных.</strong> Профессиональный ответ может звучать так: «Сейчас рано выбирать технологию; за две недели проверим состав обращений, причины задержек и достижимый эффект».</div>
+          </article>
+        </div>
+
+        <div class="lesson-stage" data-stage="8" data-title="Часть 3 · Рабочий результат" data-time="≈ 20 минут">
+          <article class="lesson-card">
+            <span class="part-label">Финальная практика</span>
+            <h2>Подготовьте записку директору</h2>
+            <p>Черновик сохраняется только в вашем браузере. Обсудите его со мной в чате — я не буду сразу показывать полный ответ.</p>
+            <div class="field"><label for="lesson-decision">1. Какое решение должен принять комитет?</label><textarea id="lesson-decision" placeholder="Комитет должен решить, стоит ли…"></textarea></div>
+            <div class="field"><label for="lesson-facts">2. Что мы действительно знаем?</label><textarea id="lesson-facts" placeholder="Укажите проверяемые сведения и их источники"></textarea></div>
+            <div class="field"><label for="lesson-assumptions">3. Что необходимо проверить?</label><textarea id="lesson-assumptions" placeholder="Причина роста, состав обращений, ожидаемый эффект…"></textarea></div>
+            <div class="field"><label for="lesson-metrics">4. Главная и защитная метрики</label><textarea id="lesson-metrics" placeholder="Главная — …; защитная — …"></textarea></div>
+            <div class="field"><label for="lesson-next">5. Ваш следующий шаг</label><textarea id="lesson-next" placeholder="В течение двух недель мы…"></textarea></div>
+            <button class="secondary" data-save-brief>Сохранить черновик</button>
+            <h3>Какой путь вы рекомендуете?</h3>
+            <div class="decision-list"><button class="decision" data-lesson-choice="launch">Запустить AI-консьержа за 30 дней</button><button class="decision" data-lesson-choice="diagnose">Провести двухнедельную диагностику</button><button class="decision" data-lesson-choice="decline">Отклонить инициативу</button></div>
+            <div class="result" data-lesson-result role="status"></div>
+          </article>
+        </div>
+
+        <div class="lesson-nav"><button class="secondary" data-stage-back disabled>← Назад</button><div><button class="secondary" data-save-place>Сохранить и выйти</button><button class="primary" data-stage-next>Далее →</button></div></div>
+      </section>
+
+      <section class="view" data-view="dashboard" data-od-id="dashboard">
         <div class="page-head"><div><p class="eyebrow">Ваш первый рабочий день</p><h1>Доброе утро, Никита</h1><p class="muted">Сначала разберитесь, что руководство действительно должно решить.</p></div><button class="primary" data-open-task>Продолжить задачу</button></div>
         <div class="grid">
           <article class="card soft"><div class="card-head"><h2>Сегодня</h2><span class="tag">1 из 3</span></div><p><strong>09:07 · Поручение директора</strong></p><p class="muted">Подготовить позицию по запуску AI-консьержа к пятничному комитету.</p></article>
@@ -191,10 +358,33 @@
     document.querySelectorAll('[data-next-tab]').forEach(button=>button.addEventListener('click',()=>openTab(button.dataset.nextTab)));
     document.querySelector('[data-save-notes]').addEventListener('click',()=>{localStorage.setItem('workspace-notes',JSON.stringify({decision:document.querySelector('#decision-note').value,facts:document.querySelector('#facts-note').value,guess:document.querySelector('#guess-note').value}));openTab('decision');});
     const saved=JSON.parse(localStorage.getItem('workspace-notes')||'{}');document.querySelector('#decision-note').value=saved.decision||'';document.querySelector('#facts-note').value=saved.facts||'';document.querySelector('#guess-note').value=saved.guess||'';
-    const result=document.querySelector('.result');
+    const result=document.querySelector('[data-view="project"] .result');
     const consequences={launch:{text:'Бюджет поставщика зарезервирован. ИТ требует срочной проверки, риск проекта вырос.',budget:'0,6 млн ₽',risk:'Высокий',trust:'Осторожное',evidence:'Недостаточно'},diagnose:{text:'Комитет сохраняет бюджет и даёт две недели на проверку данных и вариантов решения.',budget:'2,4 млн ₽',risk:'Контролируемый',trust:'Растёт',evidence:'Собираются'},decline:{text:'Бюджет сохранён, но директор просит доказать, почему не стоит даже проверять возможность.',budget:'2,4 млн ₽',risk:'Упущенная возможность',trust:'Под вопросом',evidence:'Недостаточно'}};
     document.querySelectorAll('[data-choice]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-choice]').forEach(b=>b.classList.remove('selected'));button.classList.add('selected');const state=consequences[button.dataset.choice];result.textContent=state.text;result.classList.add('show');document.querySelector('[data-budget]').textContent=state.budget;document.querySelector('[data-risk]').textContent=state.risk;document.querySelector('[data-trust]').textContent=state.trust;document.querySelector('[data-evidence]').textContent=state.evidence;localStorage.setItem('workspace-choice',button.dataset.choice);}));
     document.querySelector('[data-send]').addEventListener('click',()=>{const input=document.querySelector('#mentor-question');const text=input.value.trim();if(!text)return;const chat=document.querySelector('[data-chat]');const mine=document.createElement('div');mine.className='bubble me';mine.textContent=text;chat.appendChild(mine);const reply=document.createElement('div');reply.className='bubble';reply.textContent='Хороший вопрос. Теперь назовите источник, по которому это можно проверить, и что заставит вас изменить мнение.';chat.appendChild(reply);input.value='';});
+
+    const lessonStages=[...document.querySelectorAll('[data-stage]')];
+    const stageTitle=document.querySelector('[data-stage-title]');
+    const stageCounter=document.querySelector('[data-stage-counter]');
+    const stageTime=document.querySelector('[data-stage-time]');
+    const stageProgress=document.querySelector('[data-lesson-progress]');
+    const backButton=document.querySelector('[data-stage-back]');
+    const nextButton=document.querySelector('[data-stage-next]');
+    let currentStage=Math.min(Number(localStorage.getItem('workspace-lesson-stage')||0),lessonStages.length-1);
+    const quizDone=new Set(JSON.parse(localStorage.getItem('workspace-quiz-done')||'[]'));
+    function setStage(index){currentStage=Math.max(0,Math.min(index,lessonStages.length-1));lessonStages.forEach((stage,i)=>stage.classList.toggle('active',i===currentStage));const stage=lessonStages[currentStage];stageTitle.textContent=stage.dataset.title;stageCounter.textContent=`Шаг ${currentStage+1} из ${lessonStages.length}`;stageTime.textContent=stage.dataset.time;stageProgress.style.width=`${((currentStage+1)/lessonStages.length)*100}%`;backButton.disabled=currentStage===0;nextButton.textContent=currentStage===lessonStages.length-1?'Завершить день':'Далее →';localStorage.setItem('workspace-lesson-stage',currentStage);document.querySelector('.main').scrollTop=0;}
+    function requirePractice(){const quiz=currentStage===3?'assumption':currentStage===6?'guardrail':null;if(quiz&&!quizDone.has(quiz)){const box=document.querySelector(`[data-feedback="${quiz}"]`);box.textContent='Сначала сделайте попытку. Здесь важно не угадать, а проверить ход рассуждения.';box.classList.add('show');return false}return true}
+    backButton.addEventListener('click',()=>setStage(currentStage-1));
+    nextButton.addEventListener('click',()=>{if(!requirePractice())return;if(currentStage<lessonStages.length-1){setStage(currentStage+1)}else{openView('progress')}});
+    document.querySelector('[data-save-place]').addEventListener('click',()=>{localStorage.setItem('workspace-lesson-stage',currentStage);openView('dashboard')});
+    const attempts={};
+    document.querySelectorAll('[data-quiz]').forEach(quiz=>quiz.querySelectorAll('[data-answer]').forEach(option=>option.addEventListener('click',()=>{const name=quiz.dataset.quiz;const box=document.querySelector(`[data-feedback="${name}"]`);attempts[name]=(attempts[name]||0)+1;if(option.dataset.answer==='correct'){quizDone.add(name);localStorage.setItem('workspace-quiz-done',JSON.stringify([...quizDone]));option.classList.add('correct');box.textContent=name==='assumption'?'Верно. Это прогноз будущего эффекта. Его можно проверить по составу обращений и результатам небольшого пилота.':'Верно. Повторное обращение показывает, что быстрый первый ответ мог не решить проблему.'}else if(attempts[name]===1){box.textContent='Подсказка 1: спросите себя, существует ли уже источник, который подтверждает это число.'}else if(attempts[name]===2){box.textContent='Подсказка 2: фраза описывает будущий эффект инструмента, который ещё не запускали.'}else{box.textContent=name==='assumption'?'Разбор: это предположение. Бота ещё нет, поэтому доля вопросов, которую он сможет обработать, пока не измерена.':'Разбор: защитная метрика — доля повторных обращений. Она обнаруживает формально быстрые, но бесполезные ответы.'}box.classList.add('show')})));
+    const briefFields=['lesson-decision','lesson-facts','lesson-assumptions','lesson-metrics','lesson-next'];
+    const savedBrief=JSON.parse(localStorage.getItem('workspace-lesson-brief')||'{}');briefFields.forEach(id=>document.querySelector(`#${id}`).value=savedBrief[id]||'');
+    document.querySelector('[data-save-brief]').addEventListener('click',()=>{const draft={};briefFields.forEach(id=>draft[id]=document.querySelector(`#${id}`).value);localStorage.setItem('workspace-lesson-brief',JSON.stringify(draft));document.querySelector('[data-save-brief]').textContent='Черновик сохранён'});
+    const lessonResult=document.querySelector('[data-lesson-result]');
+    document.querySelectorAll('[data-lesson-choice]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-lesson-choice]').forEach(b=>b.classList.remove('selected'));button.classList.add('selected');const state=consequences[button.dataset.lessonChoice];lessonResult.textContent=state.text;lessonResult.classList.add('show');document.querySelector('[data-budget]').textContent=state.budget;document.querySelector('[data-risk]').textContent=state.risk;document.querySelector('[data-trust]').textContent=state.trust;document.querySelector('[data-evidence]').textContent=state.evidence;localStorage.setItem('workspace-lesson-choice',button.dataset.lessonChoice)}));
+    setStage(currentStage);
   </script>
 </body>
 </html>
