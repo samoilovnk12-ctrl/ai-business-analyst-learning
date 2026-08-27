@@ -185,9 +185,37 @@ textarea:focus, input:focus { outline: 3px solid rgba(20,92,67,.14); border-colo
 
 .callout { margin: 20px 0; padding: 18px 20px; border: 1px solid #e4c79e; border-radius: 14px; background: var(--amber-2); }
 
+.part-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 24px; }
+.part-nav a { padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: white; text-decoration: none; }
+.part-nav strong { display: block; color: var(--ink); }
+.part-nav span { color: var(--muted); font-size: .88rem; }
+
+.inbox { display: grid; gap: 12px; margin-top: 20px; }
+.message { padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: white; }
+.message .sender { margin-bottom: 8px; color: var(--green); font-size: .8rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.message p:last-child { margin-bottom: 0; }
+
+.status-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+.status-item { padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.65); }
+.status-item strong { display: block; color: var(--green); font-size: .88rem; }
+
+.data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: .94rem; }
+.data-table th, .data-table td { padding: 11px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.data-table th { color: var(--green); font-size: .8rem; letter-spacing: .05em; text-transform: uppercase; }
+
+.mentor { margin: 20px 0; padding: 22px; border: 1px solid #adc7d9; border-radius: 16px; background: #eaf2f7; }
+.mentor h3 { color: var(--blue); }
+.mentor p, .mentor li { color: var(--ink); }
+.section.dark .flow p { color: var(--ink); }
+.section.dark .data-table th { color: #a9d5bf; }
+
+.consequence { display: none; margin-top: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--amber-2); }
+.consequence.show { display: block; }
+
 @media (max-width: 780px) {
   .col-4, .col-6, .col-8 { grid-column: span 12; }
   .flow, .compare { grid-template-columns: 1fr; }
+  .part-nav, .status-board { grid-template-columns: 1fr; }
   .phase { grid-template-columns: 1fr; gap: 7px; }
   .term { grid-template-columns: 1fr; gap: 4px; }
   .topbar { align-items: flex-start; flex-direction: column; }

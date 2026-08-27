@@ -41,3 +41,15 @@ function restoreAssignment(formId, key) {
     field.value = block.split('\n').slice(1).join('\n').replace(/^—$/, '');
   });
 }
+
+function chooseScenario(button, branch, message, storageKey) {
+  const group = button.closest('[data-scenario]');
+  group.querySelectorAll('button').forEach((item) => item.classList.remove('correct'));
+  button.classList.add('correct');
+  const consequence = group.querySelector('.consequence');
+  consequence.innerHTML = message;
+  consequence.classList.add('show');
+  localStorage.setItem(storageKey, branch);
+  const hiddenDecision = document.querySelector(`[data-branch-field="${storageKey}"]`);
+  if (hiddenDecision) hiddenDecision.value = branch;
+}
