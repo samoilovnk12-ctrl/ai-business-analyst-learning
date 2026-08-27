@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Меридиан · Рабочее место аналитика</title>
+  <style>
+    :root {
+      --bg:#FFFFFF;
+      --surface:#F8FAFC;
+      --fg:#0F172A;
+      --muted:#64748B;
+      --border:#E2E8F0;
+      --accent:#3B82F6;
+      --font-display:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+      --font-body:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+      --font-mono:ui-monospace,"JetBrains Mono","SF Mono",Menlo,monospace;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 var(--font-body);overflow:hidden}
+    button,input,textarea{font:inherit}
+    button{cursor:pointer}
+    button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid color-mix(in oklch,var(--accent) 24%,transparent);outline-offset:2px}
+    h1,h2,h3{font-family:var(--font-display);text-wrap:balance}
+    .app{height:100%;display:grid;grid-template-columns:224px minmax(480px,1fr) 310px;grid-template-rows:62px minmax(0,1fr)}
+    .topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid var(--border);background:var(--bg)}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:650}
+    .brand-mark{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:var(--fg);color:var(--bg);font-size:12px}
+    .top-status{display:flex;align-items:center;gap:18px;color:var(--muted);font-size:13px}
+    .user{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--surface);border:1px solid var(--border);color:var(--fg);font-weight:650}
+    .sidebar{padding:18px 12px;border-right:1px solid var(--border);background:var(--surface);overflow:auto}
+    .side-label{margin:14px 10px 8px;color:var(--muted);font:11px/1.4 var(--font-mono);letter-spacing:.06em;text-transform:uppercase}
+    .nav-btn{width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:0;border-radius:8px;background:transparent;color:var(--muted);text-align:left}
+    .nav-btn:hover{background:var(--bg);color:var(--fg)}
+    .nav-btn.active{background:var(--bg);color:var(--fg);font-weight:600;border:1px solid var(--border)}
+    .count{min-width:22px;padding:1px 6px;border-radius:999px;background:color-mix(in oklch,var(--accent) 12%,transparent);color:var(--accent);font:11px/1.6 var(--font-mono);text-align:center}
+    .main{min-width:0;overflow:auto;background:var(--bg)}
+    .view{display:none;padding:30px clamp(22px,4vw,48px) 60px}
+    .view.active{display:block}
+    .page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:28px}
+    .eyebrow{margin:0 0 6px;color:var(--muted);font:12px/1.5 var(--font-mono);letter-spacing:.05em;text-transform:uppercase}
+    h1{margin:0;font-size:clamp(26px,3vw,38px);line-height:1.1;letter-spacing:-.025em}
+    h2{margin:0;font-size:21px;line-height:1.25;letter-spacing:-.015em}
+    h3{margin:0;font-size:15px}
+    p{margin:8px 0 0;text-wrap:pretty}
+    .muted{color:var(--muted)}
+    .primary,.secondary{min-height:42px;padding:9px 14px;border-radius:8px;font-weight:600}
+    .primary{border:1px solid var(--accent);background:var(--accent);color:var(--bg)}
+    .primary:hover{background:color-mix(in oklch,var(--accent) 88%,var(--fg))}
+    .secondary{border:1px solid var(--border);background:var(--bg);color:var(--fg)}
+    .secondary:hover{border-color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .card{padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--bg)}
+    .card.soft{background:var(--surface)}
+    .card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    .tag{display:inline-flex;padding:4px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted);font:11px/1.4 var(--font-mono)}
+    .task-list{display:grid;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .task-row{display:grid;grid-template-columns:90px 1fr auto;gap:14px;padding:16px 18px;border:0;border-bottom:1px solid var(--border);background:var(--bg);color:var(--fg);text-align:left}
+    .task-row:last-child{border-bottom:0}
+    .task-row:hover{background:var(--surface)}
+    .task-row .time{color:var(--muted);font:12px/1.5 var(--font-mono)}
+    .task-row strong{display:block;margin-bottom:3px}
+    .workspace{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .workspace-tabs{display:flex;gap:2px;padding:8px;background:var(--surface);border-bottom:1px solid var(--border)}
+    .tab-btn{padding:8px 12px;border:0;border-radius:7px;background:transparent;color:var(--muted)}
+    .tab-btn.active{background:var(--bg);color:var(--fg);font-weight:600}
+    .tab-panel{display:none;padding:26px}
+    .tab-panel.active{display:block}
+    .mail-meta{display:grid;grid-template-columns:70px 1fr;gap:8px;margin:18px 0 24px;color:var(--muted);font-size:13px}
+    .mail-body{max-width:68ch;font-size:16px;line-height:1.65}
+    .field{display:grid;gap:7px;margin-bottom:16px}
+    label{font-size:13px;font-weight:600}
+    textarea,input{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--fg)}
+    textarea{min-height:108px;resize:vertical}
+    .decision-list{display:grid;gap:10px;margin-top:18px}
+    .decision{padding:14px 16px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--fg);text-align:left}
+    .decision:hover{border-color:var(--accent)}
+    .decision.selected{border-color:var(--accent);background:color-mix(in oklch,var(--accent) 7%,var(--bg))}
+    .result{display:none;margin-top:14px;padding:14px;border-left:3px solid var(--accent);background:var(--surface)}
+    .result.show{display:block}
+    .mentor{padding:18px;border-left:1px solid var(--border);background:var(--surface);overflow:auto}
+    .mentor-head{display:flex;align-items:center;gap:10px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+    .mentor-avatar{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:var(--fg);color:var(--bg);font:12px/1 var(--font-mono)}
+    .online{color:var(--accent);font-size:12px}
+    .state{display:grid;gap:10px;padding:18px 0;border-bottom:1px solid var(--border)}
+    .state-row{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px}
+    .state-row span:last-child{font-family:var(--font-mono)}
+    .chat{display:flex;flex-direction:column;gap:10px;padding:18px 0}
+    .bubble{padding:11px 12px;border:1px solid var(--border);border-radius:10px;background:var(--bg);font-size:13px}
+    .bubble.me{margin-left:24px;background:color-mix(in oklch,var(--accent) 7%,var(--bg))}
+    .chat-compose{display:grid;gap:8px}
+    .chat-compose textarea{min-height:72px;font-size:13px}
+    .progress{height:6px;border-radius:999px;background:var(--border);overflow:hidden}
+    .progress span{display:block;width:18%;height:100%;background:var(--accent)}
+    .kpi{font:26px/1.2 var(--font-mono);letter-spacing:-.03em}
+    .empty{padding:54px 20px;text-align:center;color:var(--muted)}
+    @media(max-width:1050px){.app{grid-template-columns:190px minmax(420px,1fr)}.mentor{display:none}}
+    @media(max-width:760px){body{overflow:auto}.app{height:auto;min-height:100%;display:block}.topbar{position:sticky;top:0;z-index:5}.top-status>span{display:none}.sidebar{display:flex;gap:6px;overflow:auto;border-right:0;border-bottom:1px solid var(--border)}.side-label{display:none}.nav-btn{width:auto;flex:0 0 auto}.main{overflow:visible}.view{padding:22px 16px 50px}.grid{grid-template-columns:1fr}.task-row{grid-template-columns:1fr}.task-row .time{display:none}.page-head{display:block}.page-head button{margin-top:16px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">М</span><span>Меридиан · Центр прикладного ИИ</span></div>
+      <div class="top-status"><span>31 августа 2026 · понедельник</span><span>Младший бизнес-аналитик</span><span class="user">НС</span></div>
+    </header>
+
+    <nav class="sidebar" aria-label="Рабочая навигация">
+      <p class="side-label">Работа</p>
+      <button class="nav-btn active" data-view-button="dashboard">Рабочий стол <span class="count">3</span></button>
+      <button class="nav-btn" data-view-button="inbox">Входящие <span class="count">3</span></button>
+      <button class="nav-btn" data-view-button="project">Проект</button>
+      <button class="nav-btn" data-view-button="data">Данные</button>
+      <p class="side-label">Развитие</p>
+      <button class="nav-btn" data-view-button="progress">Мой прогресс</button>
+    </nav>
+
+    <main class="main">
+      <section class="view active" data-view="dashboard" data-od-id="dashboard">
+        <div class="page-head"><div><p class="eyebrow">Ваш первый рабочий день</p><h1>Доброе утро, Никита</h1><p class="muted">Сначала разберитесь, что руководство действительно должно решить.</p></div><button class="primary" data-open-task>Продолжить задачу</button></div>
+        <div class="grid">
+          <article class="card soft"><div class="card-head"><h2>Сегодня</h2><span class="tag">1 из 3</span></div><p><strong>09:07 · Поручение директора</strong></p><p class="muted">Подготовить позицию по запуску AI-консьержа к пятничному комитету.</p></article>
+          <article class="card"><div class="card-head"><h2>Текущий проект</h2><span class="tag">Диагностика</span></div><p><strong>AI-консьерж для гостей</strong></p><p class="muted">Решение ещё не принято · бюджет проверки 2,4 млн ₽</p></article>
+          <article class="card"><div class="card-head"><h2>Ближайший срок</h2><span class="tag">4 дня</span></div><p class="kpi">Пт · 11:00</p><p class="muted">Инвестиционный комитет</p></article>
+          <article class="card"><div class="card-head"><h2>Прогресс недели</h2><span class="tag">18%</span></div><div class="progress"><span></span></div><p class="muted">Открыто первое рабочее событие.</p></article>
+        </div>
+      </section>
+
+      <section class="view" data-view="inbox" data-od-id="inbox">
+        <div class="page-head"><div><p class="eyebrow">Входящие · 3 новых</p><h1>Рабочая почта</h1></div></div>
+        <div class="task-list">
+          <button class="task-row" data-open-task><span class="time">09:07</span><span><strong>AI-консьерж надо запустить за месяц</strong><span class="muted">Андрей Крылов · генеральный директор</span></span><span class="count">1</span></button>
+          <button class="task-row"><span class="time">09:13</span><span><strong>Re: AI-консьерж</strong><span class="muted">Сергей Лапин · гостиничное направление</span></span><span></span></button>
+          <button class="task-row"><span class="time">09:16</span><span><strong>Цифры жалоб требуют проверки</strong><span class="muted">Ирина Белова · руководитель данных</span></span><span></span></button>
+        </div>
+      </section>
+
+      <section class="view" data-view="project" data-od-id="project">
+        <div class="page-head"><div><p class="eyebrow">Проект 01 · обслуживание гостей</p><h1>AI-консьерж</h1><p class="muted">Проверить проблему, ожидаемый эффект и возможные решения до выбора технологии.</p></div><span class="tag">Решение не принято</span></div>
+        <div class="workspace">
+          <div class="workspace-tabs"><button class="tab-btn active" data-tab-button="mail">Письмо</button><button class="tab-btn" data-tab-button="notes">Заметки</button><button class="tab-btn" data-tab-button="decision">Решение</button></div>
+          <div class="tab-panel active" data-tab="mail">
+            <h2>AI-консьерж надо запустить за месяц</h2>
+            <div class="mail-meta"><span>От</span><strong>Андрей Крылов, генеральный директор</strong><span>Кому</span><strong>Центр прикладного ИИ</strong><span>Срок</span><strong>Пятница, 11:00</strong></div>
+            <div class="mail-body"><p>Коллеги, количество жалоб на обслуживание выросло. Конкуренты уже рассказывают про AI.</p><p>Предлагаю за 30 дней запустить консьержа в приложении: пусть отвечает гостям круглосуточно и разгрузит контактный центр. На пятничном комитете жду план и прогноз экономии.</p></div>
+            <p><button class="primary" data-next-tab="notes">Разобрать поручение</button></p>
+          </div>
+          <div class="tab-panel" data-tab="notes">
+            <div class="field"><label for="decision-note">Какое решение должен принять комитет?</label><textarea id="decision-note" placeholder="Комитет должен решить, стоит ли…"></textarea></div>
+            <div class="field"><label for="facts-note">Что здесь является фактом?</label><textarea id="facts-note" placeholder="Выпишите только проверяемые утверждения"></textarea></div>
+            <div class="field"><label for="guess-note">Что пока является предположением?</label><textarea id="guess-note" placeholder="Какие объяснения и обещания ещё не подтверждены?"></textarea></div>
+            <button class="primary" data-save-notes>Сохранить заметки</button>
+          </div>
+          <div class="tab-panel" data-tab="decision">
+            <h2>Ваше предварительное решение</h2><p class="muted">Выберите путь. Это изменит состояние проекта, но не заблокирует обучение.</p>
+            <div class="decision-list"><button class="decision" data-choice="launch">Запустить AI-консьержа за 30 дней</button><button class="decision" data-choice="diagnose">Провести двухнедельную диагностику</button><button class="decision" data-choice="decline">Отклонить инициативу и перераспределить бюджет</button></div>
+            <div class="result" role="status"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" data-view="data" data-od-id="data">
+        <div class="page-head"><div><p class="eyebrow">Доступные источники</p><h1>Данные проекта</h1><p class="muted">На первом дне доступна только информация о происхождении данных.</p></div></div>
+        <div class="task-list"><div class="task-row"><span class="time">Обновлён</span><span><strong>Отчёт контактного центра</strong><span class="muted">Звонки и почта · владелец: Операции</span></span><span class="tag">Доступен</span></div><div class="task-row"><span class="time">С июля</span><span><strong>Обращения из приложения</strong><span class="muted">Новый источник · определение требует сверки</span></span><span class="tag">Риск</span></div><div class="task-row"><span class="time">Еженед.</span><span><strong>Жалобы гостиничного направления</strong><span class="muted">Ручная Excel-сводка управляющих</span></span><span class="tag">Запрошен</span></div></div>
+      </section>
+
+      <section class="view" data-view="progress" data-od-id="progress">
+        <div class="page-head"><div><p class="eyebrow">Личный профиль</p><h1>Профессиональный прогресс</h1><p class="muted">Не очки ради игры, а доказательства того, что вам уже можно доверить.</p></div></div>
+        <div class="grid"><article class="card"><h2>Подтверждённый навык</h2><p>Различать бизнес-результат, основную и защитную метрики.</p></article><article class="card"><h2>Текущий навык</h2><p>Отделять факты и предположения от предложенного решения.</p></article><article class="card"><h2>Доверие руководства</h2><p class="kpi" data-trust>Нейтральное</p></article><article class="card"><h2>Качество доказательств</h2><p class="kpi" data-evidence>Недостаточно</p></article></div>
+      </section>
+    </main>
+
+    <aside class="mentor">
+      <div class="mentor-head"><span class="mentor-avatar">DA</span><div><strong>ДАНИИЛ</strong><div class="online">доступен для проверки</div></div></div>
+      <div class="state"><div class="state-row"><span>Проект</span><span>AI-консьерж</span></div><div class="state-row"><span>Бюджет</span><span data-budget>2,4 млн ₽</span></div><div class="state-row"><span>Риск</span><span data-risk>Не оценён</span></div><div class="state-row"><span>Срок</span><span>4 дня</span></div></div>
+      <div class="chat" data-chat><div class="bubble">Я не дам готовый ответ. Сначала сформулируйте, какое решение должен принять комитет и какие утверждения требуют проверки.</div></div>
+      <div class="chat-compose"><label for="mentor-question">Вопрос наставнику</label><textarea id="mentor-question" placeholder="Например: как отличить факт от предположения?"></textarea><button class="secondary" data-send>Отправить ДАНИИЛу</button></div>
+    </aside>
+  </div>
+  <script>
+    const viewButtons=[...document.querySelectorAll('[data-view-button]')];
+    const views=[...document.querySelectorAll('[data-view]')];
+    function openView(name){viewButtons.forEach(b=>b.classList.toggle('active',b.dataset.viewButton===name));views.forEach(v=>v.classList.toggle('active',v.dataset.view===name));}
+    viewButtons.forEach(button=>button.addEventListener('click',()=>openView(button.dataset.viewButton)));
+    document.querySelectorAll('[data-open-task]').forEach(button=>button.addEventListener('click',()=>openView('project')));
+    const tabButtons=[...document.querySelectorAll('[data-tab-button]')];
+    const panels=[...document.querySelectorAll('[data-tab]')];
+    function openTab(name){tabButtons.forEach(b=>b.classList.toggle('active',b.dataset.tabButton===name));panels.forEach(p=>p.classList.toggle('active',p.dataset.tab===name));}
+    tabButtons.forEach(button=>button.addEventListener('click',()=>openTab(button.dataset.tabButton)));
+    document.querySelectorAll('[data-next-tab]').forEach(button=>button.addEventListener('click',()=>openTab(button.dataset.nextTab)));
+    document.querySelector('[data-save-notes]').addEventListener('click',()=>{localStorage.setItem('workspace-notes',JSON.stringify({decision:document.querySelector('#decision-note').value,facts:document.querySelector('#facts-note').value,guess:document.querySelector('#guess-note').value}));openTab('decision');});
+    const saved=JSON.parse(localStorage.getItem('workspace-notes')||'{}');document.querySelector('#decision-note').value=saved.decision||'';document.querySelector('#facts-note').value=saved.facts||'';document.querySelector('#guess-note').value=saved.guess||'';
+    const result=document.querySelector('.result');
+    const consequences={launch:{text:'Бюджет поставщика зарезервирован. ИТ требует срочной проверки, риск проекта вырос.',budget:'0,6 млн ₽',risk:'Высокий',trust:'Осторожное',evidence:'Недостаточно'},diagnose:{text:'Комитет сохраняет бюджет и даёт две недели на проверку данных и вариантов решения.',budget:'2,4 млн ₽',risk:'Контролируемый',trust:'Растёт',evidence:'Собираются'},decline:{text:'Бюджет сохранён, но директор просит доказать, почему не стоит даже проверять возможность.',budget:'2,4 млн ₽',risk:'Упущенная возможность',trust:'Под вопросом',evidence:'Недостаточно'}};
+    document.querySelectorAll('[data-choice]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-choice]').forEach(b=>b.classList.remove('selected'));button.classList.add('selected');const state=consequences[button.dataset.choice];result.textContent=state.text;result.classList.add('show');document.querySelector('[data-budget]').textContent=state.budget;document.querySelector('[data-risk]').textContent=state.risk;document.querySelector('[data-trust]').textContent=state.trust;document.querySelector('[data-evidence]').textContent=state.evidence;localStorage.setItem('workspace-choice',button.dataset.choice);}));
+    document.querySelector('[data-send]').addEventListener('click',()=>{const input=document.querySelector('#mentor-question');const text=input.value.trim();if(!text)return;const chat=document.querySelector('[data-chat]');const mine=document.createElement('div');mine.className='bubble me';mine.textContent=text;chat.appendChild(mine);const reply=document.createElement('div');reply.className='bubble';reply.textContent='Хороший вопрос. Теперь назовите источник, по которому это можно проверить, и что заставит вас изменить мнение.';chat.appendChild(reply);input.value='';});
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Дизайн-система курса — предварительный просмотр</title>
+  <style>
+    :root { --bg:#FFFFFF; --surface:#F8FAFC; --fg:#0F172A; --muted:#64748B; --accent:#3B82F6; --hover:#2563EB; --line:#E2E8F0; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 Inter,system-ui,sans-serif; }
+    main { width:min(1080px,calc(100% - 40px)); margin:auto; padding:56px 0 80px; }
+    section { padding:32px 0; border-bottom:1px solid var(--line); }
+    h1,h2,h3 { font-family:Inter,system-ui,sans-serif; line-height:1.15; }
+    h1 { font-size:clamp(2rem,5vw,3.5rem); }
+    h2 { margin-bottom:20px; }
+    .muted { color:var(--muted); }
+    .swatches { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+    .swatch { min-height:120px; padding:16px; border:1px solid var(--line); border-radius:12px; }
+    .surface { background:var(--surface); } .primary { background:var(--fg); color:white; } .secondary { color:var(--muted); }
+    .accent { background:var(--accent); color:white; } .hover { background:var(--hover); color:white; }
+    .specimen { margin:18px 0; padding:18px; background:var(--surface); border-radius:12px; }
+    .display { font-size:clamp(2rem,5vw,3.5rem); font-weight:600; line-height:1.05; }
+    .mono { font:14px/1.6 ui-monospace,"JetBrains Mono",monospace; }
+    .ruler { display:grid; gap:12px; }
+    .bar { height:28px; display:flex; align-items:center; padding-left:10px; border-radius:6px; background:var(--accent); color:white; }
+    .components { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .card { padding:24px; background:var(--surface); border:1px solid var(--line); border-radius:12px; }
+    button { padding:11px 18px; border:1px solid var(--accent); border-radius:8px; background:var(--accent); color:white; font:inherit; cursor:pointer; }
+    button:hover { background:var(--hover); }
+    input { width:100%; padding:11px 13px; border:1px solid var(--line); border-radius:8px; font:inherit; }
+    input:focus { outline:3px solid rgba(59,130,246,.18); border-color:var(--accent); }
+    @media(max-width:760px){.swatches,.components{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <main>
+    <header><p class="muted">Дизайн-система · версия 0.1</p><h1>Понятное рабочее пространство аналитика</h1><p class="muted">Светлый, спокойный и оптимальный интерфейс без визуального шума.</p></header>
+    <section><h2>Цвета</h2><div class="swatches"><div class="swatch">Background<br><code>#FFFFFF</code></div><div class="swatch surface">Surface<br><code>#F8FAFC</code></div><div class="swatch primary">Text<br><code>#0F172A</code></div><div class="swatch accent">Accent<br><code>#3B82F6</code></div><div class="swatch hover">Hover<br><code>#2563EB</code></div></div></section>
+    <section><h2>Типографика</h2><div class="specimen display">Первый день в AI-отделе</div><div class="specimen">Основной текст объясняет действие простым языком и не перегружает экран.</div><div class="specimen mono">31.08.2026 · бюджет 2 400 000 ₽ · риск: средний</div></section>
+    <section><h2>Ритм</h2><div class="ruler"><div class="bar" style="width:72%">Раздел · 72px</div><div class="bar" style="width:40%">Контент · 40px</div><div class="bar" style="width:24%">Мобильный · 24px</div></div></section>
+    <section><h2>Компоненты</h2><div class="components"><div class="card"><h3>Задача от руководителя</h3><p class="muted">Определите, какое решение должен принять комитет.</p><button type="button">Открыть задачу</button></div><div class="card"><label for="answer">Ваш вывод</label><input id="answer" placeholder="Сформулируйте одним предложением"></div></div></section>
+  </main>
+</body>
+</html>
