@@ -125,8 +125,28 @@
     .part-label{display:inline-flex;margin-bottom:12px;padding:4px 8px;border-radius:999px;background:color-mix(in oklch,var(--accent) 10%,transparent);color:var(--accent);font:11px/1.5 var(--font-mono)}
     .lesson-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
     .lesson-summary div{padding:14px;border-top:2px solid var(--fg);background:var(--surface)}
+    .month-overview{display:grid;grid-template-columns:1fr repeat(3,120px);gap:18px;align-items:center;padding:20px;border:1px solid var(--border);border-radius:12px;background:var(--surface);margin-bottom:18px}
+    .month-stat strong{display:block;font:24px/1.2 var(--font-mono)}
+    .month-stat span{color:var(--muted);font-size:12px}
+    .week-switcher{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
+    .week-button{padding:13px 14px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--muted);text-align:left}
+    .week-button strong{display:block;color:var(--fg);margin-bottom:3px}
+    .week-button.active{border-color:var(--accent);background:color-mix(in oklch,var(--accent) 7%,var(--bg))}
+    .week-panel{display:none}
+    .week-panel.active{display:block}
+    .week-intro{margin-bottom:14px;padding:18px 20px;border-left:3px solid var(--accent);background:var(--surface)}
+    .session-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .session-card{display:flex;flex-direction:column;min-height:245px;padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);color:var(--fg);text-align:left}
+    .session-card:hover,.session-card.selected{border-color:var(--accent)}
+    .mode{display:inline-flex;align-self:flex-start;margin-bottom:16px;padding:4px 8px;border-radius:999px;background:var(--surface);color:var(--muted);font:11px/1.5 var(--font-mono)}
+    .session-card h2{font-size:18px;margin-bottom:8px}
+    .session-card p{font-size:14px;color:var(--muted)}
+    .session-outcome{margin-top:auto;padding-top:15px;color:var(--fg);font-size:13px;border-top:1px solid var(--border)}
+    .month-result{margin-top:18px;padding:20px;border:1px solid var(--border);border-radius:12px}
+    .helper-context{margin:14px 0;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--muted);font-size:12px}
+    .copy-status{min-height:18px;color:var(--accent);font-size:12px}
     @media(max-width:1050px){.app{grid-template-columns:190px minmax(420px,1fr)}.mentor{display:none}}
-    @media(max-width:760px){body{overflow:auto}.app{height:auto;min-height:100%;display:block}.topbar{position:sticky;top:0;z-index:5}.top-status>span{display:none}.sidebar{display:flex;gap:6px;overflow:auto;border-right:0;border-bottom:1px solid var(--border)}.side-label{display:none}.nav-btn{width:auto;flex:0 0 auto}.main{overflow:visible}.view{padding:22px 16px 50px}.grid,.concept-grid,.metric-chain,.lesson-summary{grid-template-columns:1fr}.task-row{grid-template-columns:1fr}.task-row .time{display:none}.page-head{display:block}.page-head button{margin-top:16px}}
+    @media(max-width:760px){body{overflow:auto}.app{height:auto;min-height:100%;display:block}.topbar{position:sticky;top:0;z-index:5}.top-status>span{display:none}.sidebar{display:flex;gap:6px;overflow:auto;border-right:0;border-bottom:1px solid var(--border)}.side-label{display:none}.nav-btn{width:auto;flex:0 0 auto}.main{overflow:visible}.view{padding:22px 16px 50px}.grid,.concept-grid,.metric-chain,.lesson-summary,.session-grid,.month-overview{grid-template-columns:1fr}.week-switcher{grid-template-columns:repeat(2,1fr)}.task-row{grid-template-columns:1fr}.task-row .time{display:none}.page-head{display:block}.page-head button{margin-top:16px}}
   </style>
 </head>
 <body>
@@ -137,18 +157,73 @@
     </header>
 
     <nav class="sidebar" aria-label="Рабочая навигация">
+      <p class="side-label">Курс</p>
+      <button class="nav-btn active" data-view-button="curriculum">Программа <span class="count">12</span></button>
       <p class="side-label">Работа</p>
       <button class="nav-btn" data-view-button="dashboard">Рабочий стол <span class="count">3</span></button>
       <button class="nav-btn" data-view-button="inbox">Входящие <span class="count">3</span></button>
       <button class="nav-btn" data-view-button="project">Проект</button>
       <button class="nav-btn" data-view-button="data">Данные</button>
       <p class="side-label">Развитие</p>
-      <button class="nav-btn active" data-view-button="learning">Учебный день <span class="count">1</span></button>
       <button class="nav-btn" data-view-button="progress">Мой прогресс</button>
     </nav>
 
     <main class="main">
-      <section class="view active" data-view="learning" data-od-id="learning-day">
+      <section class="view active" data-view="curriculum" data-od-id="month-one-curriculum">
+        <div class="page-head"><div><p class="eyebrow">Курс 2.0 · первый месяц</p><h1>Сначала — прочный фундамент</h1><p class="muted">В первый месяц вы не проектируете ИИ. Сначала разбираетесь, чем занимается аналитик и как он понимает работу компании.</p></div><span class="tag">На согласовании</span></div>
+        <div class="month-overview">
+          <div><h2>Первый месяц</h2><p class="muted">Четыре навыка осваиваются по очереди. Каждую неделю: объяснение, тренировка и применение.</p></div>
+          <div class="month-stat"><strong>4</strong><span>недели</span></div>
+          <div class="month-stat"><strong>12</strong><span>занятий</span></div>
+          <div class="month-stat"><strong>18 ч</strong><span>занятия с курсом</span></div>
+        </div>
+        <div class="week-switcher" aria-label="Недели первого месяца">
+          <button class="week-button active" data-week-button="1"><strong>Неделя 1</strong>Профессия</button>
+          <button class="week-button" data-week-button="2"><strong>Неделя 2</strong>Проблема</button>
+          <button class="week-button" data-week-button="3"><strong>Неделя 3</strong>Процесс</button>
+          <button class="week-button" data-week-button="4"><strong>Неделя 4</strong>Разговор</button>
+        </div>
+
+        <section class="week-panel active" data-week="1" data-od-id="curriculum-week-1">
+          <div class="week-intro"><strong>Главная мысль недели</strong><br>Аналитик помогает компании понять ситуацию и принять обоснованное решение.</div>
+          <div class="session-grid">
+            <button class="session-card selected" data-session-context="Неделя 1, занятие 1 — Кто такой бизнес-аналитик"><span class="mode">Учебная аудитория · 90 минут</span><h2>1. Кто такой бизнес-аналитик</h2><p>Простыми словами разберём, зачем компании аналитик, что он делает и чем отличается от руководителя и программиста.</p><span class="session-outcome"><strong>Результат:</strong> сможете объяснить профессию своими словами.</span></button>
+            <button class="session-card" data-session-context="Неделя 1, занятие 2 — Как аналитик думает"><span class="mode">Лаборатория · 90 минут</span><h2>2. Как аналитик думает</h2><p>Вместе разберём интернет-магазин, куда часто звонят с вопросом «Где мой заказ?».</p><span class="session-outcome"><strong>Результат:</strong> сможете задать первые вопросы до выбора решения.</span></button>
+            <button class="session-card" data-session-context="Неделя 1, занятие 3 — Первый рабочий день"><span class="mode">Рабочее место · 90 минут</span><h2>3. Первый рабочий день</h2><p>Познакомитесь с командой «Меридиана» и поймёте, кто за что отвечает. Сложных заданий не будет.</p><span class="session-outcome"><strong>Результат:</strong> личная карта команды.</span></button>
+          </div>
+        </section>
+
+        <section class="week-panel" data-week="2" data-od-id="curriculum-week-2">
+          <div class="week-intro"><strong>Главная мысль недели</strong><br>Первая предложенная идея может быть полезной, но сначала нужно понять проблему.</div>
+          <div class="session-grid">
+            <button class="session-card" data-session-context="Неделя 2, занятие 4 — Проблема, причина, цель и решение"><span class="mode">Учебная аудитория · 90 минут</span><h2>4. Проблема и решение</h2><p>На примере холодной квартиры разберём разницу между тем, что произошло, почему это могло произойти и что можно сделать.</p><span class="session-outcome"><strong>Результат:</strong> перестанете путать проблему с готовой идеей.</span></button>
+            <button class="session-card" data-session-context="Неделя 2, занятие 5 — Практика на разных бизнесах"><span class="mode">Лаборатория · 90 минут</span><h2>5. Четыре разных бизнеса</h2><p>Потренируемся на ресторане, туристическом агентстве, интернет-магазине и клинике.</p><span class="session-outcome"><strong>Результат:</strong> сможете разобрать новый случай без формы.</span></button>
+            <button class="session-card" data-session-context="Неделя 2, занятие 6 — Задержка заселения в отеле"><span class="mode">Рабочее место · 90 минут</span><h2>6. Задержка заселения</h2><p>Управляющий предлагает новые стойки регистрации. Вы выясняете, что нужно узнать до покупки.</p><span class="session-outcome"><strong>Результат:</strong> заметка из четырёх простых пунктов.</span></button>
+          </div>
+        </section>
+
+        <section class="week-panel" data-week="3" data-od-id="curriculum-week-3">
+          <div class="week-intro"><strong>Главная мысль недели</strong><br>Чтобы улучшить работу, сначала нужно увидеть, как она происходит сейчас.</div>
+          <div class="session-grid">
+            <button class="session-card" data-session-context="Неделя 3, занятие 7 — Что такое процесс"><span class="mode">Учебная аудитория · 90 минут</span><h2>7. Работа по шагам</h2><p>На примере заказа еды увидим начало, действия, решения, исключения и конец обычной работы.</p><span class="session-outcome"><strong>Результат:</strong> сможете пересказать процесс по порядку.</span></button>
+            <button class="session-card" data-session-context="Неделя 3, занятие 8 — Простая схема процесса"><span class="mode">Лаборатория · 90 минут</span><h2>8. Нарисовать процесс</h2><p>Превратим обычный рассказ в понятную схему из прямоугольников и стрелок — без сложных стандартов.</p><span class="session-outcome"><strong>Результат:</strong> схема, понятная другому человеку.</span></button>
+            <button class="session-card" data-session-context="Неделя 3, занятие 9 — Процесс заселения гостя"><span class="mode">Рабочее место · 90 минут</span><h2>9. Заселение гостя</h2><p>Соберёте текущий процесс заселения и отметите одно место, где появляется ожидание.</p><span class="session-outcome"><strong>Результат:</strong> первая рабочая схема.</span></button>
+          </div>
+        </section>
+
+        <section class="week-panel" data-week="4" data-od-id="curriculum-week-4">
+          <div class="week-intro"><strong>Главная мысль недели</strong><br>Аналитик не угадывает, как работает компания, а спрашивает людей и проверяет услышанное.</div>
+          <div class="session-grid">
+            <button class="session-card" data-session-context="Неделя 4, занятие 10 — Как проводить рабочий разговор"><span class="mode">Учебная аудитория · 90 минут</span><h2>10. Понятные вопросы</h2><p>Разберём, как спросить сотрудника о реальной работе и не подсказать ему желаемый ответ.</p><span class="session-outcome"><strong>Результат:</strong> три полезных вопроса сотруднику.</span></button>
+            <button class="session-card" data-session-context="Неделя 4, занятие 11 — Тренировочное интервью"><span class="mode">Лаборатория · 90 минут</span><h2>11. Разговор с администратором</h2><p>Проведём разговор вместе: вы задаёте вопросы, получаете неполные ответы и учитесь уточнять.</p><span class="session-outcome"><strong>Результат:</strong> понятный конспект разговора.</span></button>
+            <button class="session-card" data-session-context="Неделя 4, занятие 12 — Первое исследование"><span class="mode">Рабочее место · 90 минут</span><h2>12. Первое исследование</h2><p>Сравните рассказы двух сотрудников и обновите схему заселения, не выдавая мнение за доказанный факт.</p><span class="session-outcome"><strong>Результат:</strong> первый небольшой пакет аналитика.</span></button>
+          </div>
+        </section>
+
+        <div class="month-result"><h2>После первого месяца</h2><p>Вы сможете простыми словами объяснить работу аналитика, отличить проблему от решения, показать процесс по шагам и задать сотруднику понятные вопросы. Метрики, данные, SQL и устройство ИИ начнутся позже.</p></div>
+      </section>
+
+      <section class="view" data-view="learning" data-od-id="learning-day">
         <div class="page-head"><div><p class="eyebrow">Неделя 1 · день 1</p><h1>От громкой идеи — к проверяемой задаче</h1><p class="muted">Полноценное занятие: 3 части по 30 минут. Можно остановиться после любой части.</p></div><span class="tag">Навык: постановка задачи</span></div>
         <div class="lesson-head">
           <strong data-stage-title>Часть 1 · Рабочее событие</strong>
@@ -339,10 +414,10 @@
     </main>
 
     <aside class="mentor">
-      <div class="mentor-head"><span class="mentor-avatar">DA</span><div><strong>ДАНИИЛ</strong><div class="online">доступен для проверки</div></div></div>
-      <div class="state"><div class="state-row"><span>Проект</span><span>AI-консьерж</span></div><div class="state-row"><span>Бюджет</span><span data-budget>2,4 млн ₽</span></div><div class="state-row"><span>Риск</span><span data-risk>Не оценён</span></div><div class="state-row"><span>Срок</span><span>4 дня</span></div></div>
-      <div class="chat" data-chat><div class="bubble">Я не дам готовый ответ. Сначала сформулируйте, какое решение должен принять комитет и какие утверждения требуют проверки.</div></div>
-      <div class="chat-compose"><label for="mentor-question">Вопрос наставнику</label><textarea id="mentor-question" placeholder="Например: как отличить факт от предположения?"></textarea><button class="secondary" data-send>Отправить ДАНИИЛу</button></div>
+      <div class="mentor-head"><span class="mentor-avatar">?</span><div><strong>Помощник по курсу</strong><div class="online">отдельный чат Codex</div></div></div>
+      <div class="helper-context"><strong>Сейчас выбрано:</strong><br><span data-help-context>Неделя 1, занятие 1 — Кто такой бизнес-аналитик</span></div>
+      <div class="chat"><div class="bubble">Если что-то непонятно, напишите обычными словами. Я добавлю место курса и подготовлю сообщение для отдельного чата помощника.</div></div>
+      <div class="chat-compose"><label for="mentor-question">Что вам непонятно?</label><textarea id="mentor-question" placeholder="Например: чем аналитик отличается от руководителя?"></textarea><button class="secondary" data-copy-help>Скопировать вопрос для чата</button><div class="copy-status" data-copy-status role="status"></div></div>
     </aside>
   </div>
   <script>
@@ -350,6 +425,14 @@
     const views=[...document.querySelectorAll('[data-view]')];
     function openView(name){viewButtons.forEach(b=>b.classList.toggle('active',b.dataset.viewButton===name));views.forEach(v=>v.classList.toggle('active',v.dataset.view===name));}
     viewButtons.forEach(button=>button.addEventListener('click',()=>openView(button.dataset.viewButton)));
+    const weekButtons=[...document.querySelectorAll('[data-week-button]')];
+    const weekPanels=[...document.querySelectorAll('[data-week]')];
+    const helpContext=document.querySelector('[data-help-context]');
+    function selectSession(card){document.querySelectorAll('[data-session-context]').forEach(item=>item.classList.remove('selected'));card.classList.add('selected');helpContext.textContent=card.dataset.sessionContext;localStorage.setItem('workspace-help-context',card.dataset.sessionContext)}
+    weekButtons.forEach(button=>button.addEventListener('click',()=>{weekButtons.forEach(item=>item.classList.toggle('active',item===button));weekPanels.forEach(panel=>panel.classList.toggle('active',panel.dataset.week===button.dataset.weekButton));const first=document.querySelector(`[data-week="${button.dataset.weekButton}"] [data-session-context]`);if(first)selectSession(first)}));
+    document.querySelectorAll('[data-session-context]').forEach(card=>card.addEventListener('click',()=>selectSession(card)));
+    async function copyText(value){try{await navigator.clipboard.writeText(value);return true}catch(error){const area=document.createElement('textarea');area.value=value;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();const copied=document.execCommand('copy');area.remove();return copied}}
+    document.querySelector('[data-copy-help]').addEventListener('click',async()=>{const input=document.querySelector('#mentor-question');const status=document.querySelector('[data-copy-status]');const question=input.value.trim();if(!question){status.textContent='Сначала напишите, что именно непонятно.';return}const message=`Я прохожу курс «Бизнес-аналитик по внедрению ИИ». Сейчас я нахожусь здесь: ${helpContext.textContent}. Мне непонятно: ${question} Объясни максимально простым языком и приведи один знакомый пример.`;const copied=await copyText(message);status.textContent=copied?'Вопрос скопирован. Откройте чат «Помощник по курсу», вставьте сообщение и отправьте.':'Не удалось скопировать. Выделите вопрос и отправьте его в чат «Помощник по курсу».'});
     document.querySelectorAll('[data-open-task]').forEach(button=>button.addEventListener('click',()=>openView('project')));
     const tabButtons=[...document.querySelectorAll('[data-tab-button]')];
     const panels=[...document.querySelectorAll('[data-tab]')];
@@ -361,7 +444,6 @@
     const result=document.querySelector('[data-view="project"] .result');
     const consequences={launch:{text:'Бюджет поставщика зарезервирован. ИТ требует срочной проверки, риск проекта вырос.',budget:'0,6 млн ₽',risk:'Высокий',trust:'Осторожное',evidence:'Недостаточно'},diagnose:{text:'Комитет сохраняет бюджет и даёт две недели на проверку данных и вариантов решения.',budget:'2,4 млн ₽',risk:'Контролируемый',trust:'Растёт',evidence:'Собираются'},decline:{text:'Бюджет сохранён, но директор просит доказать, почему не стоит даже проверять возможность.',budget:'2,4 млн ₽',risk:'Упущенная возможность',trust:'Под вопросом',evidence:'Недостаточно'}};
     document.querySelectorAll('[data-choice]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-choice]').forEach(b=>b.classList.remove('selected'));button.classList.add('selected');const state=consequences[button.dataset.choice];result.textContent=state.text;result.classList.add('show');document.querySelector('[data-budget]').textContent=state.budget;document.querySelector('[data-risk]').textContent=state.risk;document.querySelector('[data-trust]').textContent=state.trust;document.querySelector('[data-evidence]').textContent=state.evidence;localStorage.setItem('workspace-choice',button.dataset.choice);}));
-    document.querySelector('[data-send]').addEventListener('click',()=>{const input=document.querySelector('#mentor-question');const text=input.value.trim();if(!text)return;const chat=document.querySelector('[data-chat]');const mine=document.createElement('div');mine.className='bubble me';mine.textContent=text;chat.appendChild(mine);const reply=document.createElement('div');reply.className='bubble';reply.textContent='Хороший вопрос. Теперь назовите источник, по которому это можно проверить, и что заставит вас изменить мнение.';chat.appendChild(reply);input.value='';});
 
     const lessonStages=[...document.querySelectorAll('[data-stage]')];
     const stageTitle=document.querySelector('[data-stage-title]');
