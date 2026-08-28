@@ -145,10 +145,19 @@
     .session-card p{font-size:14px;color:var(--muted)}
     .session-outcome{margin-top:auto;padding-top:15px;color:var(--fg);font-size:13px;border-top:1px solid var(--border)}
     .month-result{margin-top:18px;padding:20px;border:1px solid var(--border);border-radius:12px}
+    .practice-block{margin-top:18px;padding:22px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+    .practice-block-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .practice-list{display:grid;gap:8px}
+    .practice-item{display:grid;grid-template-columns:92px 1fr auto;gap:14px;align-items:start;padding:14px;border:1px solid var(--border);border-radius:9px;background:var(--bg)}
+    .practice-item .duration{color:var(--muted);font:12px/1.5 var(--font-mono)}
+    .practice-item p{margin:3px 0 0;color:var(--muted);font-size:13px}
+    .practice-state{padding:3px 7px;border-radius:999px;background:var(--surface);color:var(--muted);font:11px/1.5 var(--font-mono)}
+    .practice-item.current{border-color:var(--accent)}
+    .practice-item.current .practice-state{color:var(--accent)}
     .helper-context{margin:14px 0;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--muted);font-size:12px}
     .copy-status{min-height:18px;color:var(--accent);font-size:12px}
     @media(max-width:1050px){.app{grid-template-columns:190px minmax(420px,1fr)}.mentor{display:none}}
-    @media(max-width:760px){body{overflow:auto}.app{height:auto;min-height:100%;display:block}.topbar{position:sticky;top:0;z-index:5}.top-status>span{display:none}.sidebar{display:flex;gap:6px;overflow:auto;border-right:0;border-bottom:1px solid var(--border)}.side-label{display:none}.nav-btn{width:auto;flex:0 0 auto}.main{overflow:visible}.view{padding:22px 16px 50px}.grid,.concept-grid,.metric-chain,.lesson-summary,.session-grid,.month-overview{grid-template-columns:1fr}.week-switcher{grid-template-columns:repeat(2,1fr)}.task-row{grid-template-columns:1fr}.task-row .time{display:none}.page-head{display:block}.page-head button{margin-top:16px}}
+    @media(max-width:760px){body{overflow:auto}.app{height:auto;min-height:100%;display:block}.topbar{position:sticky;top:0;z-index:5}.top-status>span{display:none}.sidebar{display:flex;gap:6px;overflow:auto;border-right:0;border-bottom:1px solid var(--border)}.side-label{display:none}.nav-btn{width:auto;flex:0 0 auto}.main{overflow:visible}.view{padding:22px 16px 50px}.grid,.concept-grid,.metric-chain,.lesson-summary,.session-grid,.month-overview{grid-template-columns:1fr}.week-switcher{grid-template-columns:repeat(2,1fr)}.practice-item{grid-template-columns:1fr}.task-row{grid-template-columns:1fr}.task-row .time{display:none}.page-head{display:block}.page-head button{margin-top:16px}}
   </style>
 </head>
 <body>
@@ -176,29 +185,40 @@
         <div class="month-overview">
           <div><h2>Первый месяц</h2><p class="muted">Четыре навыка осваиваются по очереди. Каждую неделю: объяснение, тренировка и применение.</p></div>
           <div class="month-stat"><strong>4</strong><span>недели</span></div>
-          <div class="month-stat"><strong>3/12</strong><span>занятий пройдено</span></div>
+          <div class="month-stat"><strong>0/4</strong><span>недель завершено</span></div>
           <div class="month-stat"><strong>18 ч</strong><span>занятия с курсом</span></div>
         </div>
         <div class="week-switcher" aria-label="Недели первого месяца">
-          <button class="week-button" data-week-button="1"><strong>Неделя 1 · пройдена</strong>Профессия</button>
-          <button class="week-button active" data-week-button="2"><strong>Неделя 2</strong>Проблема</button>
+          <button class="week-button active" data-week-button="1"><strong>Неделя 1 · практика</strong>Профессия</button>
+          <button class="week-button" data-week-button="2"><strong>Неделя 2</strong>Проблема</button>
           <button class="week-button" data-week-button="3"><strong>Неделя 3</strong>Процесс</button>
           <button class="week-button" data-week-button="4"><strong>Неделя 4</strong>Разговор</button>
         </div>
 
-        <section class="week-panel" data-week="1" data-od-id="curriculum-week-1">
+        <section class="week-panel active" data-week="1" data-od-id="curriculum-week-1">
           <div class="week-intro"><strong>Главная мысль недели</strong><br>Аналитик помогает компании понять ситуацию и принять обоснованное решение.</div>
           <div class="session-grid">
-            <button class="session-card completed" data-session-context="Неделя 1, занятие 1 — Кто такой бизнес-аналитик"><span class="mode">Пройдено · учебная аудитория</span><h2>1. Кто такой бизнес-аналитик</h2><p>Простыми словами разберём, зачем компании аналитик, что он делает и чем отличается от руководителя и программиста.</p><span class="session-outcome"><strong>Подтверждено:</strong> объяснили профессию своими словами и перенесли ход мысли в кейс такси.</span></button>
-            <button class="session-card completed" data-session-context="Неделя 1, занятие 2 — Как аналитик думает"><span class="mode">Пройдено · лаборатория</span><h2>2. Как аналитик думает</h2><p>Вместе разобрали, как создавать возможные причины, связывать их с проблемой и выбирать информацию для проверки.</p><span class="session-outcome"><strong>Подтверждено:</strong> вопросы и план проверки для интернет-магазина и сети отелей.</span></button>
-            <button class="session-card completed" data-session-context="Неделя 1, занятие 3 — Первый рабочий день"><span class="mode">Пройдено · рабочее место</span><h2>3. Первый рабочий день</h2><p>Познакомились с командой «Меридиана» и разобрали, кто знает реальную работу, техническую причину и масштаб для бизнеса.</p><span class="session-outcome"><strong>Подтверждено:</strong> правильный выбор участников в гостиничном и ресторанном случаях.</span></button>
+            <button class="session-card completed" data-session-context="Неделя 1 — основы роли бизнес-аналитика"><span class="mode">Основы подтверждены</span><h2>1. Кто такой бизнес-аналитик</h2><p>Вы объяснили роль аналитика своими словами и перенесли ход мысли в кейс такси.</p><span class="session-outcome"><strong>Статус:</strong> понимание есть, углубление впереди.</span></button>
+            <button class="session-card completed" data-session-context="Неделя 1 — основы аналитического мышления"><span class="mode">Основы подтверждены</span><h2>2. Как аналитик думает</h2><p>Вы научились создавать возможные причины и выбирать информацию для проверки.</p><span class="session-outcome"><strong>Статус:</strong> понимание есть, нужна самостоятельная практика.</span></button>
+            <button class="session-card completed" data-session-context="Неделя 1 — основы работы с участниками"><span class="mode">Основы подтверждены</span><h2>3. Кто знает разные части ситуации</h2><p>Вы разобрали роли сотрудника процесса, программиста и руководителя.</p><span class="session-outcome"><strong>Статус:</strong> понимание есть, рабочий результат ещё не создан.</span></button>
+          </div>
+          <div class="practice-block">
+            <div class="practice-block-head"><div><h2>Углубление и практика недели 1</h2><p class="muted">Неделя завершится после самостоятельного исследования и рабочего результата, а не после короткого диалога.</p></div><span class="tag">ещё 9–11 часов</span></div>
+            <div class="practice-list">
+              <div class="practice-item current"><span class="duration">≈ 60 минут</span><div><strong>1. Границы работы аналитика</strong><p>Подробно разберём, где заканчивается исследование аналитика и начинаются решения руководителя, разработка и операционная работа.</p></div><span class="practice-state">сейчас</span></div>
+              <div class="practice-item"><span class="duration">≈ 120 минут</span><div><strong>2. Лаборатория четырёх отраслей</strong><p>Самостоятельно разберёте туризм, ресторан, интернет-магазин и финансовый сервис без готового ответа.</p></div><span class="practice-state">впереди</span></div>
+              <div class="practice-item"><span class="duration">≈ 180 минут</span><div><strong>3. Рабочее исследование «Меридиана»</strong><p>Соберёте карту участников, вопросы и источники информации для одного реалистичного поручения.</p></div><span class="practice-state">впереди</span></div>
+              <div class="practice-item"><span class="duration">≈ 120 минут</span><div><strong>4. Бесплатные внешние материалы</strong><p>Изучите подобранные видео и тексты с русским путеводителем и обсудите непонятное с помощником.</p></div><span class="practice-state">впереди</span></div>
+              <div class="practice-item"><span class="duration">≈ 120 минут</span><div><strong>5. Новый случай без подсказок</strong><p>Покажете перенос навыка на незнакомый бизнес и получите разбор после собственной попытки.</p></div><span class="practice-state">впереди</span></div>
+              <div class="practice-item"><span class="duration">≈ 90 минут</span><div><strong>6. Рабочий результат и повторение</strong><p>Доведёте карту команды до портфолио и повторите ключевую мысль через несколько дней.</p></div><span class="practice-state">впереди</span></div>
+            </div>
           </div>
         </section>
 
-        <section class="week-panel active" data-week="2" data-od-id="curriculum-week-2">
+        <section class="week-panel" data-week="2" data-od-id="curriculum-week-2">
           <div class="week-intro"><strong>Главная мысль недели</strong><br>Первая предложенная идея может быть полезной, но сначала нужно понять проблему.</div>
           <div class="session-grid">
-            <button class="session-card selected" data-session-context="Неделя 2, занятие 4 — Проблема, причина, цель и решение"><span class="mode">Следующее · учебная аудитория</span><h2>4. Проблема и решение</h2><p>На примере холодной квартиры разберём разницу между тем, что произошло, почему это могло произойти и что можно сделать.</p><span class="session-outcome"><strong>Результат:</strong> перестанете путать проблему с готовой идеей.</span></button>
+            <button class="session-card" data-session-context="Неделя 2, занятие 4 — Проблема, причина, цель и решение"><span class="mode">Учебная аудитория · 90 минут</span><h2>4. Проблема и решение</h2><p>На примере холодной квартиры разберём разницу между тем, что произошло, почему это могло произойти и что можно сделать.</p><span class="session-outcome"><strong>Результат:</strong> перестанете путать проблему с готовой идеей.</span></button>
             <button class="session-card" data-session-context="Неделя 2, занятие 5 — Практика на разных бизнесах"><span class="mode">Лаборатория · 90 минут</span><h2>5. Четыре разных бизнеса</h2><p>Потренируемся на ресторане, туристическом агентстве, интернет-магазине и клинике.</p><span class="session-outcome"><strong>Результат:</strong> сможете разобрать новый случай без формы.</span></button>
             <button class="session-card" data-session-context="Неделя 2, занятие 6 — Задержка заселения в отеле"><span class="mode">Рабочее место · 90 минут</span><h2>6. Задержка заселения</h2><p>Управляющий предлагает новые стойки регистрации. Вы выясняете, что нужно узнать до покупки.</p><span class="session-outcome"><strong>Результат:</strong> заметка из четырёх простых пунктов.</span></button>
           </div>
@@ -411,13 +431,13 @@
 
       <section class="view" data-view="progress" data-od-id="progress">
         <div class="page-head"><div><p class="eyebrow">Личный профиль</p><h1>Профессиональный прогресс</h1><p class="muted">Не очки ради игры, а доказательства того, что вам уже можно доверить.</p></div></div>
-        <div class="grid"><article class="card"><h2>Подтверждённые навыки</h2><p>Объяснять роль аналитика, проверять возможные причины и выбирать нужных участников.</p></article><article class="card"><h2>Следующий навык</h2><p>Различать проблему, возможную причину, желаемый результат и предложенное решение.</p></article><article class="card"><h2>Занятия месяца</h2><p class="kpi">3 из 12</p></article><article class="card"><h2>Последнее доказательство</h2><p>Кейсы гостиницы и ресторана: сотрудник процесса, программист и руководитель подключены по назначению.</p></article></div>
+        <div class="grid"><article class="card"><h2>Подтверждённые основы</h2><p>Роль аналитика, возможные причины и выбор нужных участников.</p></article><article class="card"><h2>Текущая работа</h2><p>Углубление первой недели и самостоятельный рабочий результат.</p></article><article class="card"><h2>Завершённые недели</h2><p class="kpi">0 из 4</p></article><article class="card"><h2>Что осталось</h2><p>Лаборатория, исследование «Меридиана», внешние материалы, перенос и повторение.</p></article></div>
       </section>
     </main>
 
     <aside class="mentor">
       <div class="mentor-head"><span class="mentor-avatar">?</span><div><strong>Помощник по курсу</strong><div class="online">отдельный чат Codex</div></div></div>
-      <div class="helper-context"><strong>Сейчас выбрано:</strong><br><span data-help-context>Неделя 2, занятие 4 — Проблема, причина, цель и решение</span></div>
+      <div class="helper-context"><strong>Сейчас выбрано:</strong><br><span data-help-context>Неделя 1 — углубление: границы работы аналитика</span></div>
       <div class="chat"><div class="bubble">Если что-то непонятно, напишите обычными словами. Я добавлю место курса и подготовлю сообщение для отдельного чата помощника.</div></div>
       <div class="chat-compose"><label for="mentor-question">Что вам непонятно?</label><textarea id="mentor-question" placeholder="Например: чем аналитик отличается от руководителя?"></textarea><button class="secondary" data-copy-help>Скопировать вопрос для чата</button><div class="copy-status" data-copy-status role="status"></div></div>
     </aside>
