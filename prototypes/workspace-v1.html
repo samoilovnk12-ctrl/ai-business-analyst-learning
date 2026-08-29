@@ -46,6 +46,7 @@
     p{margin:8px 0 0;text-wrap:pretty}
     .muted{color:var(--muted)}
     .primary,.secondary{min-height:42px;padding:9px 14px;border-radius:8px;font-weight:600}
+    .file-link{display:inline-flex;align-items:center;text-decoration:none;margin-top:14px}
     .primary{border:1px solid var(--accent);background:var(--accent);color:var(--bg)}
     .primary:hover{background:color-mix(in oklch,var(--accent) 88%,var(--fg))}
     .secondary{border:1px solid var(--border);background:var(--bg);color:var(--fg)}
@@ -178,6 +179,7 @@
       <button class="nav-btn" data-view-button="project">Проект</button>
       <button class="nav-btn" data-view-button="data">Данные</button>
       <p class="side-label">Развитие</p>
+      <button class="nav-btn" data-view-button="notes">Конспект</button>
       <button class="nav-btn" data-view-button="progress">Мой прогресс</button>
     </nav>
 
@@ -210,7 +212,7 @@
               <div class="practice-item done"><span class="duration">выполнено</span><div><strong>1. Границы работы аналитика</strong><p>Подтверждено на случаях клиники, трансфера, ресторана и технической неисправности холодильника.</p></div><span class="practice-state">готово</span></div>
               <div class="practice-item done"><span class="duration">выполнено</span><div><strong>2. Лаборатория четырёх отраслей</strong><p>Разобраны ресторан, туризм, интернет-магазин и финансовый сервис с данными, ограничениями и решениями.</p></div><span class="practice-state">готово</span></div>
               <div class="practice-item done"><span class="duration">выполнено</span><div><strong>3. Рабочее исследование «Меридиана»</strong><p>Восстановлены каналы ночных обращений, проверены данные приложения и звонков, нагрузка сотрудников, пилот и защитные показатели.</p></div><span class="practice-state">готово</span></div>
-              <div class="practice-item current"><span class="duration">≈ 120 минут</span><div><strong>4. Бесплатные внешние материалы</strong><p>Изучите подобранные видео и тексты с русским путеводителем и обсудите непонятное с помощником.</p></div><span class="practice-state">сейчас</span></div>
+              <div class="practice-item current"><span class="duration">в процессе</span><div><strong>4. Бесплатные внешние материалы</strong><p>Русское видео о бизнес- и системном аналитике просмотрено. Главные выводы переносятся в единый живой конспект.</p></div><span class="practice-state">сейчас</span></div>
               <div class="practice-item"><span class="duration">≈ 120 минут</span><div><strong>5. Новый случай без подсказок</strong><p>Покажете перенос навыка на незнакомый бизнес и получите разбор после собственной попытки.</p></div><span class="practice-state">впереди</span></div>
               <div class="practice-item"><span class="duration">≈ 90 минут</span><div><strong>6. Рабочий результат и повторение</strong><p>Доведёте карту команды до портфолио и повторите ключевую мысль через несколько дней.</p></div><span class="practice-state">впереди</span></div>
             </div>
@@ -429,6 +431,17 @@
       <section class="view" data-view="data" data-od-id="data">
         <div class="page-head"><div><p class="eyebrow">Доступные источники</p><h1>Данные проекта</h1><p class="muted">На первом дне доступна только информация о происхождении данных.</p></div></div>
         <div class="task-list"><div class="task-row"><span class="time">Обновлён</span><span><strong>Отчёт контактного центра</strong><span class="muted">Звонки и почта · владелец: Операции</span></span><span class="tag">Доступен</span></div><div class="task-row"><span class="time">С июля</span><span><strong>Обращения из приложения</strong><span class="muted">Новый источник · определение требует сверки</span></span><span class="tag">Риск</span></div><div class="task-row"><span class="time">Еженед.</span><span><strong>Жалобы гостиничного направления</strong><span class="muted">Ручная Excel-сводка управляющих</span></span><span class="tag">Запрошен</span></div></div>
+      </section>
+
+      <section class="view" data-view="notes" data-od-id="course-notes">
+        <div class="page-head"><div><p class="eyebrow">Единая база знаний</p><h1>Живой конспект курса</h1><p class="muted">После каждого завершённого блока сюда добавляется только то, что нужно помнить и применять.</p></div><span class="tag">обновляется весь курс</span></div>
+        <div class="grid">
+          <article class="card"><h2>Рабочий цикл аналитика</h2><p>Запрос → масштаб проблемы → текущая работа → проверка причин → желаемый результат → варианты → пилот и оценка.</p></article>
+          <article class="card"><h2>Главное различие ролей</h2><p>Бизнес-аналитик выясняет, что и зачем менять. Системный аналитик — как системы должны поддержать выбранное изменение.</p></article>
+          <article class="card"><h2>Правило доказательств</h2><p>Факт, свидетельство сотрудника и гипотеза — три разных уровня уверенности. Их нельзя смешивать.</p></article>
+          <article class="card"><h2>Правило проверки</h2><p>Улучшение основной метрики не считается успехом, если важная защитная метрика заметно ухудшилась.</p></article>
+        </div>
+        <div class="month-result"><h2>Полная версия</h2><p>В отдельном файле хранятся теория, формулы, роли, примеры и типичные ошибки. Файл будет расти до конца обучения.</p><a class="secondary file-link" href="../COURSE-NOTES.md">Открыть полный конспект</a></div>
       </section>
 
       <section class="view" data-view="progress" data-od-id="progress">
