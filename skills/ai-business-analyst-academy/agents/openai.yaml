@@ -1,0 +1,7 @@
+interface:
+  display_name: "AI Business Analyst Academy"
+  short_description: "Исследует источники и управляет персональным курсом"
+  default_prompt: "Используй $ai-business-analyst-academy, чтобы продолжить исследование источников или развитие моего курса."
+
+policy:
+  allow_implicit_invocation: true
