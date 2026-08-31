@@ -15,3 +15,6 @@ __pycache__/
 # Editor state
 .idea/
 .vscode/
+
+# Temporary research working files (including local source copies)
+tmp/
