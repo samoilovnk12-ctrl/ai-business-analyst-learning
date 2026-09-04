@@ -138,6 +138,7 @@
     .week-intro{margin-bottom:14px;padding:18px 20px;border-left:3px solid var(--accent);background:var(--surface)}
     .session-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
     .session-card{display:flex;flex-direction:column;min-height:245px;padding:18px;border:1px solid var(--border);border-radius:12px;background:var(--bg);color:var(--fg);text-align:left}
+    a.session-card{text-decoration:none}
     .session-card:hover,.session-card.selected{border-color:var(--accent)}
     .session-card.completed{background:var(--surface)}
     .session-card.completed .mode{color:var(--accent)}
@@ -186,6 +187,7 @@
     <main class="main">
       <section class="view active" data-view="curriculum" data-od-id="month-one-curriculum">
         <div class="page-head"><div><p class="eyebrow">Курс 2.0 · первый месяц</p><h1>Сначала — прочный фундамент</h1><p class="muted">В первый месяц вы не проектируете ИИ. Сначала разбираетесь, чем занимается аналитик и как он понимает работу компании.</p></div><span class="tag">На согласовании</span></div>
+        <article class="card soft" style="margin-bottom:18px"><div class="card-head"><div><p class="eyebrow">Новый пилот · первая неделя в «Меридиане»</p><h2>Занятие 1 утверждено и готово к проверке</h2></div><span class="tag">85–100 минут</span></div><p class="muted">Первое поручение, простая теория после вашей попытки, постепенное знакомство с командой и рабочая карточка для разбора в чате.</p><a class="primary file-link" href="pilot-session-01.html">Открыть первый рабочий день →</a></article>
         <div class="month-overview">
           <div><h2>Первый месяц</h2><p class="muted">Четыре навыка осваиваются по очереди. Каждую неделю: объяснение, тренировка и применение.</p></div>
           <div class="month-stat"><strong>4</strong><span>недели</span></div>
@@ -451,7 +453,7 @@
           <article class="card"><h2>Правило доказательств</h2><p>Факт, свидетельство сотрудника и гипотеза — три разных уровня уверенности. Их нельзя смешивать.</p></article>
           <article class="card"><h2>Правило проверки</h2><p>Улучшение основной метрики не считается успехом, если важная защитная метрика заметно ухудшилась.</p></article>
         </div>
-        <div class="month-result"><h2>Полная версия</h2><p>В отдельных файлах хранятся теория и точная форма, по которой можно разбирать учебный кейс, рабочую задачу или вопрос на собеседовании.</p><a class="secondary file-link" href="../COURSE-NOTES.md">Открыть полный конспект</a> <a class="secondary file-link" href="../CASE-ANALYSIS-TEMPLATE.md">Открыть шаблон кейса</a></div>
+        <div class="month-result"><h2>Полная версия</h2><p>В отдельных файлах хранятся теория и точная форма, по которой можно разбирать учебный кейс, рабочую задачу или вопрос на собеседовании.</p><a class="secondary file-link" href="../archive/legacy-course-v2/COURSE-NOTES.md">Открыть полный конспект</a> <a class="secondary file-link" href="../templates/CASE-ANALYSIS-TEMPLATE.md">Открыть шаблон кейса</a></div>
       </section>
 
       <section class="view" data-view="progress" data-od-id="progress">

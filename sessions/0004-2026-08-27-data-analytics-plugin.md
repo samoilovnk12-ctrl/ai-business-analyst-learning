@@ -23,7 +23,7 @@
 4. ученик объясняет вывод своими словами;
 5. навык переносится на новый кейс без готового промпта.
 
-Полная схема записана в `DATA-ANALYTICS-PLUGIN-INTEGRATION.md`.
+Полная схема записана в `integrations/DATA-ANALYTICS-PLUGIN-INTEGRATION.md`.
 
 ## Следующий шаг
 
